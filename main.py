@@ -13,7 +13,7 @@ Features:
     3. Can control resolution of image (default is random sizing of final image)
     4. Generate large data sets based on required parameters
     5. Solves the overlapping card detection for most of the cases
-Testing startegy: As the images generated should be checked with annotations some random images are to be
+Testing strategy: As the images generated should be checked with annotations some random images are to be
 selected from generated data set to ensure consistency
 Performance: Varies on number of data image objects included in scene
     1. Two data image objects avg is 6.48s

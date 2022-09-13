@@ -1,2 +1,12 @@
 flask
 flasgger
+numpy
+skimage
+matplotlib
+shapely
+lxml
+imgaug
+matplotlib
+tqdm
+opencv-python
+argparse
