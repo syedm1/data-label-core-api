@@ -548,51 +548,53 @@ class CardScene:
         self.create_xml(xml_fn, jpg_fn, self.point_list)
 
 
-def parse_arguments(argv):
-    parser = argparse.ArgumentParser()
+# def parse_arguments(argv):
+#     parser = argparse.ArgumentParser()
+#
+#     parser.add_argument('--number_image', type=int,
+#                         help='Number of output image to generate', default=1)
+#     parser.add_argument('--number_card', type=int, choices=range(0, 8),
+#                         help='Number of card to paste per output image', default=1)
+#     parser.add_argument('--number_cash', type=int, choices=range(0, 8),
+#                         help='Number of cash note to paste per output image', default=1)
+#     parser.add_argument('--random', type=bool,
+#                         help='Set this flag to true to get random number of objects in each image', default=False)
+#     parser.add_argument('--number_noisy', type=int, choices=range(0, 8),
+#                         help='Number of random noisy object images to paste per output image', default=0)
+#     parser.add_argument('--save_dir', type=str,
+#                         help='Directory to save images', default="data/scenes/val")
+#
+#     return parser.parse_args(argv)
 
-    parser.add_argument('--number_image', type=int,
-                        help='Number of output image to generate', default=1)
-    parser.add_argument('--number_card', type=int, choices=range(0, 8),
-                        help='Number of card to paste per output image', default=1)
-    parser.add_argument('--number_cash', type=int, choices=range(0, 8),
-                        help='Number of cash note to paste per output image', default=1)
-    parser.add_argument('--random', type=bool,
-                        help='Set this flag to true to get random number of objects in each image', default=False)
-    parser.add_argument('--number_noisy', type=int, choices=range(0, 8),
-                        help='Number of random noisy object images to paste per output image', default=0)
-    parser.add_argument('--save_dir', type=str,
-                        help='Directory to save images', default="data/scenes/val")
 
-    return parser.parse_args(argv)
-
-
-def main(args):
+def main():
     cards = Cards()
     backgrounds = Backgrounds()
     cash = Cash()
     noise = Noise()
 
-    if not os.path.isdir(args.save_dir):
-        os.makedirs(args.save_dir)
+    # if not os.path.isdir(args.save_dir):
+    #     os.makedirs(args.save_dir)
 
-    if args.random is True:
-        for i in tqdm(range(args.number_image)):
-            bg = backgrounds.get_random()
-            number_of_card = np.random.randint(0, 8)
-            number_of_cash = np.random.randint(0, 8)
-            number_of_obj = np.random.randint(0, 8)
-            newimg = CardScene(bg, cards, cash, noise, number_of_obj, number_of_card, number_of_cash)
-            newimg.write_files(args.save_dir)
-    else:
-        for i in tqdm(range(args.number_image)):
-            bg = backgrounds.get_random()
-            newimg = CardScene(bg, cards, cash, noise, args.number_noisy, args.number_card, args.number_cash)
-            newimg.write_files(args.save_dir)
+    for i in tqdm(range(10)):
+        bg = backgrounds.get_random()
+        number_of_card = np.random.randint(0, 8)
+        number_of_cash = np.random.randint(0, 8)
+        number_of_obj = np.random.randint(0, 8)
+        newimg = CardScene(bg, cards, cash, noise, number_of_obj, number_of_card, number_of_cash)
+        newimg.write_files("data/")
+
+    # if args.random is True:
+    #
+    # else:
+    #     for i in tqdm(range(args.number_image)):
+    #         bg = backgrounds.get_random()
+    #         newimg = CardScene(bg, cards, cash, noise, args.number_noisy, args.number_card, args.number_cash)
+    #         newimg.write_files(args.save_dir)
 
 
 if __name__ == '__main__':
     start_time_for_program_execution = time.time()
-    main(parse_arguments(sys.argv[1:]))
+    main()
     # Time required to execute program
     print('Execution time:  {0:0.1f} seconds'.format(time.time() - start_time_for_program_execution))

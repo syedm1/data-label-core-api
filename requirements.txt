@@ -1,6 +1,7 @@
 flask
 flasgger
 numpy
+scikit-image
 skimage
 matplotlib
 shapely
